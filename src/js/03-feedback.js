@@ -14,7 +14,7 @@ fillForm(formEl);
 
 function fillForm(form) {
   const storageData = JSON.parse(localStorage.getItem(KEY_STORAGE));
-    const formElements = form.elements;
+  const formElements = form.elements;
 
   for (const key in storageData) {
     if (storageData.hasOwnProperty(key)) {
@@ -32,8 +32,13 @@ function inputData(ev) {
 }
 
 function submitForm(ev) {
-    ev.preventDefault();
-    console.log(JSON.parse(localStorage.getItem(KEY_STORAGE)));
-    localStorage.removeItem(KEY_STORAGE);
-    ev.target.reset();
+  ev.preventDefault();
+  console.log(JSON.parse(localStorage.getItem(KEY_STORAGE)));
+  localStorage.removeItem(KEY_STORAGE);
+  ev.target.reset();
+  for (const key in formData) {
+    if (formData.hasOwnProperty(key)) {
+      delete formData[key];
+    }
+  }
 }
