@@ -9,8 +9,21 @@ formEl.addEventListener('input', throttle(inputData, 500));
 formEl.addEventListener('submit', submitForm);
 
 const formData = {};
+const storage = JSON.parse(localStorage.getItem(KEY_STORAGE));
+
+
 
 fillForm(formEl);
+checkStorage();
+
+function checkStorage() {
+  if (storage === null) {
+    return;
+  }
+  for (let key in storage) {
+    formData[key] = storage[key]
+  }
+}
 
 function fillForm(form) {
   const storageData = JSON.parse(localStorage.getItem(KEY_STORAGE));
@@ -25,9 +38,8 @@ function fillForm(form) {
 
 function inputData(ev) {
   const { target } = ev;
-  const userValue = target.value;
-  const formName = target.name;
-  formData[formName] = userValue;
+  formData[target.name] = target.value;
+
   localStorage.setItem(KEY_STORAGE, JSON.stringify(formData));
 }
 
